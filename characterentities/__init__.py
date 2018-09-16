@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# This file is licensed under the terms of the BSD 3-clause "New" or "Revised" license.
+# See the LICENSE file in the root of this repository for complete details.
 '''characterentities - converter for SGML characters references
 
 '''
