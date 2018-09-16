@@ -3,7 +3,11 @@ MANIFEST
 build
 dist
 *.egg-info
+
 .coverage*
+coverage.xml
+htmlcov
 coverage_out
 htmlcov
+
 .pytest_cache
