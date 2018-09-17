@@ -23,7 +23,8 @@ HTML Entities for Python
 Motivations
 ###########
 
-Drop-in replace for `python-htmlentities`_ adding: licence, Python 3 support, unit tests.
+`python-htmlentities`_ drop-in replacement sponsored by `GeoKrety-API`_ adding:
+licence, Python 3 support, unit tests and support for a lot more code-points.
 
 Alternatives
 ############
@@ -34,3 +35,4 @@ Alternatives
 
 .. _python-htmlentities: https://pypi.org/project/htmlentities/
 .. _namedentities: https://pypi.org/project/namedentities/
+.. _GeoKrety-API: https://github.com/geokrety/geokrety-api
