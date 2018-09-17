@@ -12,9 +12,13 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import io
+import os
+import re
+import sys
+
+PWD = os.path.dirname(os.path.abspath('.'))
+sys.path.insert(0, PWD)
 
 
 # -- Project information -----------------------------------------------------
@@ -23,10 +27,17 @@ project = u'characterentities'
 copyright = u'2018, Romain Dartigues'
 author = u'Romain Dartigues'
 
-# The short X.Y version
-version = u''
 # The full version, including alpha/beta/rc tags
-release = u'XXX'
+with io.open(os.path.join(PWD, project, '__init__.py'), 'rt', encoding='utf8') as fobj:
+    release = re.search(
+        r'''^__version__\s*=\s*(?P<q>["'])(.*)(?P=q)''',
+        fobj.read(),
+        re.M,
+    ).group(2)
+
+
+# The short X.Y version
+version = release.rpartition('.')[0]
 
 
 # -- General configuration ---------------------------------------------------
