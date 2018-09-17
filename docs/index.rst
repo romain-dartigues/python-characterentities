@@ -1,14 +1,22 @@
-.. characterentities documentation master file, created by
-   sphinx-quickstart on Mon Sep 17 21:34:10 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+characterentities' documentation
+================================
 
-Welcome to characterentities's documentation!
-=============================================
+:Source code: `GitHub project <https://github.com/romain-dartigues/python-characterentities>`_
+:Bug tracker: `GitHub issues <https://github.com/romain-dartigues/python-characterentities/issues>`_
+:License: `BSD 3-Clause <http://opensource.org/licenses/BSD-3-Clause>`_
+:Generated: |today|
+
+
+.. topic:: Overview
+
+   HTML (SGML) character entities encoder/decoder.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   :glob:
+
+   *
 
 
 
