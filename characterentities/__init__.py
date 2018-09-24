@@ -16,7 +16,7 @@ elif sys.version_info[0] == 3:
 
 
 class CharacterEntities(object):
-    __r_decode = re.compile(r'&(' + r'|'.join(name2codepoint) + r');')
+    __r_decode = re.compile(r'&#?\w+;')
     @classmethod
     def decode(cls, data):
         '''convert HTML encoded characters to ordinary characters
