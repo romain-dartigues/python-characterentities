@@ -44,7 +44,7 @@ class CharacterEntities(object):
             try:
                 return '&{};'.format(codepoint2name[o])
             except KeyError:
-                return '&#x{:x};'.format(o)
+                return m.group(0)
         return re.sub(regexp, fixup, data)
 
 
