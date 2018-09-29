@@ -7,12 +7,14 @@ python:
   - "3.5"
 
 install:
-  - "pip install pytest-cov codacy-coverage"
+  - "pip install codacy-coverage coverage pytest"
 
 script:
-  - pytest -v --cov=characterentities --cov-report=term --cov-report=xml --cov-branch
+  - coverage run --branch --source characterentities -m py.test -v
+  - coverage report
 
 after_success:
+  - coverage xml
   - "bash <(curl -s https://codecov.io/bash)"
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then python-codacy-coverage -r coverage.xml; fi'
 
