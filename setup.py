@@ -67,6 +67,7 @@ setup(
         'dev': (
             'pytest>=3',
             'coverage',
+            'html5lib',
         ),
     },
 )
