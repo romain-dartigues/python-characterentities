@@ -86,6 +86,9 @@ know_entities_ref, know_entities = map(
     zip(*[('&{};'.format(k), unichr(v)) for k, v in name2codepoint.items()])
 )
 
+maxunicodeoverflow_dechex = '&#{0};&#x{0:x};'.format(sys.maxunicode + 1)
+int32t_dechex = '&#{0};&#x{0:x};'.format((2<<30)-1)
+int32t_overflow_dechex = '&#{0};&#x{0:x};'.format(2<<30)
 data_decode_map = (
     ('ascii_letters_decent', ascii_letters_decent, ascii_letters_decent),
     ('ascii_letters_hexent', ascii_letters_hexent, ascii_letters_hexent),
@@ -102,6 +105,13 @@ data_decode_map = (
     ('xa0_ff_decent', xa0_ff_decent, xa0_ff_decent),
     ('xa0_ff_hexent', xa0_ff_hexent, xa0_ff_hexent),
     ('known_entities', know_entities_ref, know_entities),
+    ('cover_unknown_entity', '&foo;&bar;', '&foo;&bar;'),
+    ('cover_unknown_dec', '&#ff;', '&#ff;'),
+    ('cover_unknown_hex', '&#xyz;&#xfffffff;', '&#xyz;&#xfffffff;'),
+    ('maxunicode', '&#{0};&#x{0:x};'.format(sys.maxunicode), unichr(sys.maxunicode) * 2),
+    ('maxunicode_over', maxunicodeoverflow_dechex, maxunicodeoverflow_dechex),
+    ('unicode_int32t', int32t_dechex, int32t_dechex),
+    ('int32t_overflow', int32t_overflow_dechex, int32t_overflow_dechex),
 )
 
 for name, src, dst in data_decode_map:

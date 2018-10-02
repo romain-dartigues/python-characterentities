@@ -33,7 +33,7 @@ class CharacterEntities(object):
                         return unichr(int(text[3:-1], 16))
                     else:
                         return unichr(int(text[2:-1]))
-                except ValueError:
+                except (OverflowError, ValueError):
                     pass
             else:
                 try:
