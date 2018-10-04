@@ -35,45 +35,49 @@ STRIP = {
 }
 
 
-DUMPER = {
-    'json': {
-        'opts': {
-            'indent': 2,
-            'sort_keys': True,
-        },
-    },
-    'yaml': {
-        'dump': 'safe_dump',
-        'opts': {
-            'default_flow_style': False,
-            'explicit_start': True,
-            'explicit_end': True,
-        },
-    },
-}
+python_header = """#!/usr/bin/env python
+'''entities tables (auto-generated)
+'''
+"""
+
+python_footer = '''
+codepoint2name = {}
+for k, v in name2codepoint.items():
+    if v not in codepoint2name: codepoint2name[v] = []
+    codepoint2name[v]+= [k]
+del k, v
+'''
+
+def to_python(table, writer, header=python_header, footer=python_footer):
+    '''
+    :param table: result of :func:`extract`
+    :param file writer:
+    :param str header:
+    :param str footer:
+    :rtype: None
+    '''
+    data = [header]
+    data+= ['\n' * 3]
+    data+= ['name2codepoint = {\n']
+    data+= [
+        '    {!r}: {},\n'.format(name, row['dec'])
+        for k, row in table.items()
+        for name in row['named']
+    ]
+    data+= ['}']
+    data+= ['\n' * 3]
+    data+= [footer]
+    writer.writelines(data)
 
 
-
-def get_dumper(name):
-    conf = DUMPER.get(name, {})
-    dumper = getattr(__import__(name), conf.get('dump', 'dumps'))
-    if 'opts' in conf:
-        return lambda o: dumper(o, **conf['opts'])
-    return dumper
-
-
-def main():
-    FORMATS = (
-        'json',
-        'msgpack',
-        'yaml',
-    )
+def main(args=None):
     parser = optparse.OptionParser()
     parser.add_option('-q', '--quiet', action='store_const', const=0, dest='verbose')
     parser.add_option('-v', '--verbose', action='count', default=2)
-    parser.add_option('-m', '--man', action='store_true')
-    parser.add_option('-f', '--format', choices=FORMATS, default='json',
-        help='output format (possible: {}, default: %default)'.format(', '.join(FORMATS)))
+
+    parser.add_option('-i', '--input',
+        default='https://dev.w3.org/html5/html-author/charref',
+        help='input source (default: %default)')
 
     opt, args = parser.parse_args()
     logging.basicConfig(
@@ -82,35 +86,23 @@ def main():
         level=min(max(logging.CRITICAL - (opt.verbose * 10), logging.DEBUG), logging.CRITICAL)
     )
 
-    if opt.man:
-        help(__name__)
-        return 0
-
-    dumper = get_dumper(opt.format)
-
-    fobj = fetch(
-        'https://dev.w3.org/html5/html-author/charref',
-        '/tmp/charref',
-    )
+    fobj = urlopen(opt.input)
     document = parse_html5(fobj)
     table = extract(document)
 
-    sys.stdout.write(dumper(table))
-
-
-
-def fetch(src, dst, force=False):
-    '''
-    :param str src: URL to fetch
-    :param str dst: output for cache
-    :param bool force: force download
-    :rtype: file
-    '''
-    return open('charref')
+    to_python(table, sys.stdout)
+    return 0
 
 
 
 def extract(etree):
+    '''
+    :param etree: result of meth:`html5_parser.parse` or :meth:`html5lib.parse`
+    :rtype: dict(dict)
+    :return: a dict where the key is the character and the value is a row
+        containing the keys: ``dec`` (decimal value of the point),
+        ``desc`` (textual description), ``named`` (the entity names)
+    '''
     table = {}
     for tr in etree.xpath('//tr'):
         row = {}
