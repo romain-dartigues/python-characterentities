@@ -10,20 +10,20 @@ __version__ = '0.2.0dev'
 import re
 import sys
 
-if sys.version_info[0] == 2:
-    from htmlentitydefs import codepoint2name, name2codepoint
-elif sys.version_info[0] == 3:
-    from html.entities import codepoint2name, name2codepoint
+from characterentities.entities import codepoint2name, name2codepoint
+
+if sys.version_info[0] == 3:
     unichr = chr
 
 
 class CharacterEntities(object):
     __r_decode = re.compile(r'&#?\w+;')
+
     @classmethod
     def decode(cls, data):
         '''convert HTML encoded characters to ordinary characters
         :param str data: data to be decoded
-        :rtype: str
+        :rtype: str or unicode
         '''
         def fixup(m):
             text = m.group(0)
@@ -48,15 +48,16 @@ class CharacterEntities(object):
         '''
         :param str data: data to be encoded
         :param bool specialchars: whenether to encode SGML special characters
-        :rtype str:
+        :rtype str or unicode:
         '''
         regexp = r'[^\x00-\x9f]'
         if specialchars:
             regexp += r'|[<>"&]'
+
         def fixup(m):
             o = ord(m.group(0))
             try:
-                return '&{};'.format(codepoint2name[o])
+                return '&{};'.format(codepoint2name[o][0])
             except KeyError:
                 return '&#x{:x};'.format(o)
         return re.sub(regexp, fixup, data)
