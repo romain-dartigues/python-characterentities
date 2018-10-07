@@ -45,7 +45,6 @@ setup(
     ],
     url='https://github.com/{}'.format(_github_path),
     include_package_data=True,
-    zip_safe=False,
     platforms='any',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -67,6 +66,7 @@ setup(
         'dev': (
             'pytest>=3',
             'coverage',
+            'html5lib',
         ),
     },
 )

@@ -20,9 +20,30 @@ HTML Entities for Python
    :alt: Package on PyPI
    :target: https://pypi.org/project/characterentities/
 
-Motivations
-###########
+About
+#####
 
-Drop-in replace for `python-htmlentities`_ adding: licence, Python 3 support, unit tests.
+Licence
+=======
+
+This project is licensed under the terms of the BSD 3-clause "New" or "Revised" license.
+
+Motivations
+===========
+
+`python-htmlentities`_ replacement sponsored by `GeoKrety-API`_ adding:
+licence, Python 3 support, unit tests and support for a lot more code-points.
+
+.. Note::
+  Only the 0.1 branch will ever attempt to provide a reasonably compatible
+  API and results towards `python-htmlentities`_.
+
+Alternatives
+############
+
+* `python-htmlentities`_: original inspiration
+* `namedentities`_: found later
 
 .. _python-htmlentities: https://pypi.org/project/htmlentities/
+.. _namedentities: https://pypi.org/project/namedentities/
+.. _GeoKrety-API: https://github.com/geokrety/geokrety-api

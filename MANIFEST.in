@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+recursive-include characterentities *
+recursive-exclude characterentities *.pyc *.pyo
+recursive-include tests *
+recursive-exclude tests *.pyc *.pyo
