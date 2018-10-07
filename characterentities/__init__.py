@@ -63,6 +63,5 @@ class CharacterEntities(object):
         return re.sub(regexp, fixup, data)
 
 
-_ce = CharacterEntities()
-encode = _ce.encode
-decode = _ce.decode
+encode = CharacterEntities.encode
+decode = CharacterEntities.decode
