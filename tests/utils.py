@@ -2,7 +2,11 @@
 '''
 
 import re
+import sys
 
+
+if sys.version_info[0] == 3:
+    unichr = chr
 
 
 class Chars(object):
@@ -24,19 +28,19 @@ class Chars(object):
 
     @staticmethod
     def chars(start, stop):
-        return ''.join(map(chr, range(start, stop + 1)))
+        return u''.join(map(unichr, range(start, stop + 1)))
 
     @staticmethod
     def decent(start, stop):
         '''decimal entity
         '''
-        return ''.join(map('&#{};'.format, range(start, stop + 1)))
+        return u''.join(map('&#{};'.format, range(start, stop + 1)))
 
     @staticmethod
     def hexent(start, stop):
         '''hexadecimal entity
         '''
-        return ''.join(map('&#x{:x};'.format, range(start, stop + 1)))
+        return u''.join(map('&#x{:x};'.format, range(start, stop + 1)))
 
     def __getattr__(self, name):
         m = self.__r_valid_attr.match(name)
