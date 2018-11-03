@@ -1,5 +1,5 @@
 ######
-README  |build| |coverage| |docs| |pypi|
+README  |build| |codacy| |coverage| |docs| |pypi|
 ######
 
 HTML Entities for Python
@@ -7,6 +7,10 @@ HTML Entities for Python
 .. |build| image:: https://travis-ci.org/romain-dartigues/python-characterentities.svg
    :alt: Build status
    :target: https://travis-ci.org/romain-dartigues/python-characterentities
+
+.. |codacy| image:: https://api.codacy.com/project/badge/Grade/f1dc28c883ac4d0f98924cc5f3ca6dd1
+   :alt: Codacy static code analysis
+   :target: https://www.codacy.com/app/Romain-Dartigues-org/python-characterentities
 
 .. |docs| image:: https://readthedocs.org/projects/python-characterentities/badge/
    :alt: Documentation status
