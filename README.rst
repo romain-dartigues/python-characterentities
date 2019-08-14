@@ -4,6 +4,8 @@ README  |build| |codacy| |coverage| |docs| |pypi|
 
 HTML Entities for Python
 
+:warning: This project has been moved to GitLab <https://gitlab.com/romain-dartigues/python-characterentities>. Any further developpment happen there.
+
 .. |build| image:: https://travis-ci.org/romain-dartigues/python-characterentities.svg
    :alt: Build status
    :target: https://travis-ci.org/romain-dartigues/python-characterentities
